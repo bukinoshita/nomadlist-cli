@@ -10,3 +10,6 @@ nomadlist
 ```
 nomadlist [citiName]
 ```
+
+## API:
+All Rights to https://nomadlist.com
