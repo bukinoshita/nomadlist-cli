@@ -1,15 +1,20 @@
 # Nomadlist CLI
+> Get cities & remote works from nomadlist.com
 
 ## Usage:
-### Nomadlist
 ```
-nomadlist
-```
-
-### City
-```
-nomadlist [citiName]
+$ nomadlist cities
 ```
 
-## API:
-All Rights to https://nomadlist.com
+```
+$ nomadlist remote-work
+```
+
+## Help:
+```
+$ nomadlist
+```
+
+## License
+[MIT](https://raw.githubusercontent.com/BuKinoshita/nomadlist-cli/master/LICENSE) &copy; Bu Kinoshita
+[API: Nomadlist](https://nomadlist.com)

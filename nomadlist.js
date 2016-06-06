@@ -12,8 +12,6 @@ const args = process.argv.slice(2);
 program
   .version(version)
   .usage('[options]')
-  .option('work', 'List of places to work')
-  .option('collections', 'List of collections')
   .option('cities', 'List of cities')
   .option('remote-work', 'List of remote jobs')
   .option('taylor', 'Taylor bot')
@@ -22,40 +20,6 @@ program
 const getMethod = (argv) => {
   if(!argv[0]) {
     program.help();
-  } else if(argv == 'work') {
-    const url = 'https://nomadlist.com/api/v2/list/work';
-
-    console.log('Getting places to work...');
-    spinner.start();
-
-    request({
-    	method: 'GET',
-    	url: url
-    }, function(error, response, body) {
-      var body = JSON.parse(body);
-
-      if(response) {
-        spinner.stop();
-        console.log(body.result);
-      }
-
-      process.exit(0);
-    });
-  } else if(argv == 'collections') {
-    const url = 'https://nomadlist.com/api/v2/list/collections';
-
-    console.log('Getting colletions...');
-    spinner.start();
-
-    request({
-    	method: 'GET',
-    	url: url
-    }, function(error, response, body) {
-      var body = JSON.parse(body);
-      console.log(body.result);
-
-      process.exit(0);
-    });
   } else if(argv == 'cities') {
     const url = 'https://nomadlist.com/api/v2/list/cities';
 
@@ -67,7 +31,17 @@ const getMethod = (argv) => {
     	url: url
     }, function(error, response, body) {
       var body = JSON.parse(body);
-      console.log(body.result);
+
+      for(var i = 0; i < body.result.length; i++) {
+        var nomadlist = body.result[i];
+
+        console.log('City: ', nomadlist.info.city.name);
+        console.log('Country: ', nomadlist.info.country.name);
+        console.log('Cost: ', '$' + nomadlist.cost.nomad.USD + '/m');
+        console.log('Internet: ', nomadlist.info.internet.speed.download + ' MBPS');
+        console.log('Weather: ', nomadlist.info.weather.type + ' — ' + nomadlist.info.weather.temperature.celsius + 'C');
+        console.log('\r\n');
+      }
 
       process.exit(0);
     });
@@ -82,7 +56,16 @@ const getMethod = (argv) => {
     	url: url
     }, function(error, response, body) {
       var body = JSON.parse(body);
-      console.log(body.result);
+
+      for(var i = 0; i < body.length; i++) {
+        var nomadlist = body[i];
+
+        console.log('Date: ', nomadlist.date);
+        console.log('Company: ', nomadlist.company);
+        console.log('Position: ', nomadlist.position);
+        console.log('URL: ', nomadlist.url);
+        console.log('\r\n');
+      }
 
       process.exit(0);
     });
