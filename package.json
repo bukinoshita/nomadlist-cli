@@ -1,7 +1,7 @@
 {
   "name": "nomadlist-cli",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.0.2",
+  "description": "Get cities & remote works from nomadlist.com",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
