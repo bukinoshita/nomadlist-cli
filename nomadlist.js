@@ -6,7 +6,8 @@ const program = require('commander');
 const pkg = require('./package.json');
 const version = pkg.version;
 const request = require('request');
-const args = process.argv.slice(2)
+const args = process.argv.slice(2);
+const spinner = require('./src/spinner');
 
 program
   .version(version)
@@ -29,7 +30,7 @@ const getMethod = (argv) => {
     	url: url
     }, function(error, response, body) {
       var body = JSON.parse(body);
-      console.log(body);
+      console.log(body.result);
 
       process.exit(0);
     });
@@ -41,7 +42,7 @@ const getMethod = (argv) => {
     	url: url
     }, function(error, response, body) {
       var body = JSON.parse(body);
-      console.log(body);
+      console.log(body.result);
 
       process.exit(0);
     });
@@ -53,7 +54,7 @@ const getMethod = (argv) => {
     	url: url
     }, function(error, response, body) {
       var body = JSON.parse(body);
-      console.log(body);
+      console.log(body.result);
 
       process.exit(0);
     });
@@ -65,7 +66,7 @@ const getMethod = (argv) => {
     	url: url
     }, function(error, response, body) {
       var body = JSON.parse(body);
-      console.log(body);
+      console.log(body.result);
 
       process.exit(0);
     });
