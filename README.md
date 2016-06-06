@@ -1,5 +1,5 @@
 # Nomadlist CLI
-> Get cities & remote works from nomadlist.com
+> Get cities & remote jobs from nomadlist.com and remoteok.io
 
 ## Usage:
 ```
