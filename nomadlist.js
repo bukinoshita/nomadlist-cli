@@ -13,7 +13,7 @@ program
   .version(version)
   .usage('[options]')
   .option('cities', 'List of cities')
-  .option('remote-work', 'List of remote jobs')
+  .option('remoteok', 'List of remote jobs')
   .option('taylor', 'Taylor bot')
   .parse(process.argv);
 
@@ -45,7 +45,7 @@ const getMethod = (argv) => {
 
       process.exit(0);
     });
-  } else if(argv == 'remote-work') {
+  } else if(argv == 'remoteok') {
     const url = 'https://remoteok.io/index.json';
 
     console.log('Getting remote jobs...');
