@@ -24,6 +24,8 @@ const getMethod = (argv) => {
     program.help();
   } else if(argv == 'work') {
     const url = 'https://nomadlist.com/api/v2/list/work';
+
+    console.log('Getting places to work...');
     spinner.start();
 
     request({
@@ -42,6 +44,9 @@ const getMethod = (argv) => {
   } else if(argv == 'collections') {
     const url = 'https://nomadlist.com/api/v2/list/collections';
 
+    console.log('Getting colletions...');
+    spinner.start();
+
     request({
     	method: 'GET',
     	url: url
@@ -54,6 +59,9 @@ const getMethod = (argv) => {
   } else if(argv == 'cities') {
     const url = 'https://nomadlist.com/api/v2/list/cities';
 
+    console.log('Getting cities...');
+    spinner.start();
+
     request({
     	method: 'GET',
     	url: url
@@ -65,6 +73,9 @@ const getMethod = (argv) => {
     });
   } else if(argv == 'remote-work') {
     const url = 'https://remoteok.io/index.json';
+
+    console.log('Getting remote jobs...');
+    spinner.start();
 
     request({
     	method: 'GET',
@@ -91,9 +102,6 @@ try {
     case 'taylor':
       taylor();
       break;
-
-    default:
-      console.log(method);
   }
 } catch(e) {
   program.help();
