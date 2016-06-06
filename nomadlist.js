@@ -6,8 +6,8 @@ const program = require('commander');
 const pkg = require('./package.json');
 const version = pkg.version;
 const request = require('request');
-const args = process.argv.slice(2);
 const spinner = require('./src/spinner');
+const args = process.argv.slice(2);
 
 program
   .version(version)
@@ -24,13 +24,18 @@ const getMethod = (argv) => {
     program.help();
   } else if(argv == 'work') {
     const url = 'https://nomadlist.com/api/v2/list/work';
+    spinner.start();
 
     request({
     	method: 'GET',
     	url: url
     }, function(error, response, body) {
       var body = JSON.parse(body);
-      console.log(body.result);
+
+      if(response) {
+        spinner.stop();
+        console.log(body.result);
+      }
 
       process.exit(0);
     });
