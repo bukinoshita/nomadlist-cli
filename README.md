@@ -7,7 +7,7 @@ $ nomadlist cities
 ```
 
 ```
-$ nomadlist remote-work
+$ nomadlist remoteok
 ```
 
 ## Help:
