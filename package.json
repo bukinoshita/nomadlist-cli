@@ -1,10 +1,14 @@
 {
   "name": "nomadlist-cli",
   "version": "0.1.0",
-  "description": "Get cities & remote works from nomadlist.com",
+  "description": "Get cities and remote jobs from nomadlist.com and remoteok.io",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \":)\"",
+    "build:patch": "npm version patch && npm run pub",
+    "build:minor": "npm version minor && npm run pub",
+    "build:major": "npm version major && npm run pub",
+    "pub": "git push origin master && npm publish"
   },
   "repository": {
     "type": "git",
@@ -22,6 +26,12 @@
     "got": "^6.3.0",
     "log-update": "^1.0.2"
   },
+  "keywords": [
+    "nomadlist",
+    "nomad",
+    "remoteok",
+    "cli"
+  ],
   "bin": {
     "nomadlist": "nomadlist.js"
   }
