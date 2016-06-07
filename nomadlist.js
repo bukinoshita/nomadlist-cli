@@ -16,7 +16,6 @@ program
   .option('cities', 'List of cities')
   .option('remoteok', 'List of remote jobs')
   .option('search <CityName>', 'Search cities by name')
-  .option('taylor', 'Taylor bot')
   .parse(process.argv);
 
 const api = (argv) => {
