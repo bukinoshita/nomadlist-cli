@@ -12,6 +12,10 @@ $ nomadlist cities
 ```
 
 ```
+$ nomadlist search <CityName>
+```
+
+```
 $ nomadlist remoteok
 ```
 
