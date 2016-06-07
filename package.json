@@ -1,7 +1,7 @@
 {
   "name": "nomadlist-cli",
   "version": "0.1.0",
-  "description": "Get cities & remote works from nomadlist.com",
+  "description": "Get cities and remote jobs from nomadlist.com and remoteok.io",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -22,6 +22,12 @@
     "got": "^6.3.0",
     "log-update": "^1.0.2"
   },
+  "keywords": [
+    "nomadlist",
+    "nomad",
+    "remoteok",
+    "cli"
+  ],
   "bin": {
     "nomadlist": "nomadlist.js"
   }
