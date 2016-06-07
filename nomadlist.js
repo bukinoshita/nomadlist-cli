@@ -5,10 +5,10 @@
 const program = require('commander');
 const pkg = require('./package.json');
 const version = pkg.version;
-const request = require('request');
 const got = require('got');
 const spinner = require('./src/spinner');
 const args = process.argv.slice(2);
+const colors = require('colors/safe');
 
 program
   .version(version)
@@ -32,11 +32,11 @@ const api = (argv) => {
         for(var i = 0; i < cityList.result.length; i++) {
           var nomadlist = cityList.result[i];
 
-          console.log('City: ', nomadlist.info.city.name);
-          console.log('Country: ', nomadlist.info.country.name);
-          console.log('Cost: ', '$' + nomadlist.cost.nomad.USD + '/m');
-          console.log('Internet: ', nomadlist.info.internet.speed.download + ' MBPS');
-          console.log('Weather: ', nomadlist.info.weather.type + ' — ' + nomadlist.info.weather.temperature.celsius + 'C');
+          console.log(colors.green.bold('City:'), nomadlist.info.city.name);
+          console.log(colors.green.bold('Country:'), nomadlist.info.country.name);
+          console.log(colors.green.bold('Cost:'), '$' + nomadlist.cost.nomad.USD + '/m');
+          console.log(colors.green.bold('Internet:'), nomadlist.info.internet.speed.download + ' MBPS');
+          console.log(colors.green.bold('Weather:'), nomadlist.info.weather.type + ' — ' + nomadlist.info.weather.temperature.celsius + 'C');
           console.log('\r\n');
         }
 
@@ -56,11 +56,13 @@ const api = (argv) => {
 
         for(var i = 0; i < jobList.length; i++) {
           var nomadlist = jobList[i];
+          var date = new Date(nomadlist.date);
+          var newDate = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
 
-          console.log('Date: ', nomadlist.date);
-          console.log('Company: ', nomadlist.company);
-          console.log('Position: ', nomadlist.position);
-          console.log('URL: ', nomadlist.url);
+          console.log(colors.green.bold('Date:'), newDate);
+          console.log(colors.green.bold('Company:'), nomadlist.company);
+          console.log(colors.green.bold('Position:'), nomadlist.position);
+          console.log(colors.green.bold('URL:'), nomadlist.url);
           console.log('\r\n');
         }
 
