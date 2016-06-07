@@ -1,6 +1,6 @@
 {
   "name": "nomadlist-cli",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Get cities and remote jobs from nomadlist.com and remoteok.io",
   "main": "index.js",
   "scripts": {
