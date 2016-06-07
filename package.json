@@ -1,6 +1,6 @@
 {
   "name": "nomadlist-cli",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Get cities & remote works from nomadlist.com",
   "main": "index.js",
   "scripts": {
