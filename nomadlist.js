@@ -27,10 +27,10 @@ const api = (argv) => {
     got('https://nomadlist.com/api/v2/list/cities')
       .then(response => {
         spinner.stop();
-        var cityList = JSON.parse(response.body);
+        const cityList = JSON.parse(response.body);
 
-        for(var i = 0; i < cityList.result.length; i++) {
-          var nomadlist = cityList.result[i];
+        for(let i = 0; i < cityList.result.length; i++) {
+          let nomadlist = cityList.result[i];
 
           console.log(colors.green.bold('City:'), nomadlist.info.city.name);
           console.log(colors.green.bold('Country:'), nomadlist.info.country.name);
@@ -52,12 +52,12 @@ const api = (argv) => {
       .then(response => {
         spinner.stop();
 
-        var jobList = JSON.parse(response.body);
+        const jobList = JSON.parse(response.body);
 
-        for(var i = 0; i < jobList.length; i++) {
-          var nomadlist = jobList[i];
-          var date = new Date(nomadlist.date);
-          var newDate = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
+        for(let i = 0; i < jobList.length; i++) {
+          let nomadlist = jobList[i];
+          const date = new Date(nomadlist.date);
+          const newDate = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
 
           console.log(colors.green.bold('Date:'), newDate);
           console.log(colors.green.bold('Company:'), nomadlist.company);
@@ -79,13 +79,13 @@ const api = (argv) => {
     got('https://nomadlist.com/api/v2/list/cities')
       .then(response => {
         spinner.stop();
-        var cityList = JSON.parse(response.body);
+        const cityList = JSON.parse(response.body);
 
-        for(var i = 0; i < cityList.result.length; i++) {
-          var nomadlist = cityList.result[i];
-          var cityName = nomadlist.info.city.name;
-          var searchLowerCase = city.toLowerCase();
-          var cityLowerCase = cityName.toLowerCase();
+        for(let i = 0; i < cityList.result.length; i++) {
+          let nomadlist = cityList.result[i];
+          const cityName = nomadlist.info.city.name;
+          const searchLowerCase = city.toLowerCase();
+          const cityLowerCase = cityName.toLowerCase();
 
           if(searchLowerCase == cityLowerCase) {
             console.log(colors.bold('/*-------------------------------- \n Informations \n--------------------------------*/'));
