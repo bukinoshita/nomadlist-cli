@@ -4,11 +4,12 @@
   "description": "Get cities and remote jobs from nomadlist.com and remoteok.io",
   "main": "index.js",
   "scripts": {
-    "test": "echo \":)\"",
+    "test": "node lib/nomadlist",
     "build:patch": "npm version patch && npm run pub",
     "build:minor": "npm version minor && npm run pub",
     "build:major": "npm version major && npm run pub",
-    "pub": "git push origin master && npm publish"
+    "pub": "git push origin master && npm publish",
+    "build": "babel nomadlist.js -d lib"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,6 @@
     "cli"
   ],
   "bin": {
-    "nomadlist": "nomadlist.js"
+    "nomadlist": "lib/nomadlist.js"
   }
 }
