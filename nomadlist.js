@@ -2,13 +2,11 @@
 
 'use strict'
 
-import program from 'commander'
-import got from 'got'
-import colors from 'colors/safe'
-
-import { version } from './../package.json'
-import spinner from './../src/spinner'
-
+const program = require('commander')
+const got = require('got')
+const colors = require('colors/safe')
+const version = require('./../package.json').version
+const spinner = require('./../src/spinner')
 const args = process.argv.slice(2)
 
 program
