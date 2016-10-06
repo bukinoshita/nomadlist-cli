@@ -1,5 +1,5 @@
 # Nomadlist CLI
-> Get cities & remote jobs from nomadlist.com and remoteok.io
+> Get Cities from nomadlist.com
 
 ## Install:
 ```
@@ -8,15 +8,7 @@ $ npm install -g nomadlist-cli
 
 ## Usage:
 ```
-$ nomadlist cities
-```
-
-```
-$ nomadlist search <CityName>
-```
-
-```
-$ nomadlist remoteok
+$ nomadlist --all
 ```
 
 ## Help:
