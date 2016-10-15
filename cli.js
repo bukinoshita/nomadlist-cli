@@ -4,50 +4,37 @@
 
 const meow = require('meow')
 const updateNotifier = require('update-notifier')
-const got = require('got')
-const chalk = require('chalk')
-const boxen = require('boxen')
-const ora = require('ora')
-const spinner = ora()
+const api = require('./lib/api')
 
 const cli = meow(`
   Usage
+    $ nomadlist
     $ nomadlist <city>
+    $ nomadlist --option
 
   Options
-    -a, --all Get all cities
+    -c, --cheap      cheap cities (less than $1250/m)
+    -i, --internet   with fast internet (> 15mbps)
+    -w, --work       with great places to work
+    -s, --safe       safe cities
+    -w, --warm       warm weather (< 32C)
+    
+    --affordable     affordable (less than $3000/m)
+    --expensive      expensive (over $3000/m)
+    --cold           cold cities (< 20C)
+    --hot            hot cities (> 32C)
+    
+    -h, --help       Help
 `)
+
+const prop = cli.input[0]
+const apiUrl = 'https://nomadlist.com/api/v2/list/cities'
 
 updateNotifier({pkg: cli.pkg}).notify()
 
-if (cli.flags.all || cli.flags.a) {
-  spinner.start()
-
-  got('https://nomadlist.com/api/v2/list/cities')
-    .then(response => {
-      spinner.stop()
-
-      const cities = JSON.parse(response.body)
-
-      cities.result.map((result) => {
-        const { info, cost } = result
-        const { city, country, internet } = info
-
-        const output = [
-          `${chalk.bold.yellow('⇢ City:')} ${chalk.bold(city.name)}
-${chalk.bold.yellow('⇢ Country:')} ${chalk.bold(country.name)}
-${chalk.bold.yellow('⇢ Internet:')} ${chalk.bold(internet.speed.download)}MBPS
-${chalk.bold.yellow('⇢ Cost:')} $${chalk.bold(cost.expat.USD)}/m`
-        ]
-
-        console.log(boxen(output.join('\n'), {padding: 1, borderStyle: 'round'}))
-      })
-
-      process.exit(0)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-} else {
+if (cli.flags.help || cli.flags.h) {
   cli.showHelp()
+} else if (cli.flags.cheap || cli.flags.c) {
+} else {
+  api(apiUrl).then(console.log)
 }
