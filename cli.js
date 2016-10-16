@@ -44,4 +44,16 @@ if (cli.flags.cheap || cli.flags.c) {
       }
     })
   })
+} else if (cli.flags.internet || cli.flags.i) {
+  api().then(res => {
+    res.map(result => {
+      const {info, cost} = result
+      const {city, country, internet} = info
+
+      if (internet.speed.download > 15) {
+        const nomadlist = output(city.name, country.name, internet.speed.download, cost.expat.USD)
+        console.log(nomadlist)
+      }
+    })
+  })
 }
