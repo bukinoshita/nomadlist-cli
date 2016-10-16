@@ -5,6 +5,7 @@
 const meow = require('meow')
 const updateNotifier = require('update-notifier')
 const api = require('./lib/api')
+const output = require('./lib/output')
 
 const cli = meow(`
   Usage
@@ -28,13 +29,19 @@ const cli = meow(`
 `)
 
 const prop = cli.input[0]
-const apiUrl = 'https://nomadlist.com/api/v2/list/cities'
 
 updateNotifier({pkg: cli.pkg}).notify()
 
-if (cli.flags.help || cli.flags.h) {
-  cli.showHelp()
-} else if (cli.flags.cheap || cli.flags.c) {
-} else {
-  api(apiUrl).then(console.log)
+if (cli.flags.cheap || cli.flags.c) {
+  api().then(res => {
+    res.map(result => {
+      const {info, cost} = result
+      const {city, country, internet} = info
+
+      if (cost.expat.USD < 1250) {
+        const nomadlist = output(city.name, country.name, internet.speed.download, cost.expat.USD)
+        console.log(nomadlist)
+      }
+    })
+  })
 }
