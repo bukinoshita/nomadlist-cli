@@ -38,5 +38,13 @@
   "devDependencies": {
     "ava": "^0.16.0",
     "xo": "^0.17.0"
+  },
+  "xo": {
+    "space": true,
+    "semicolon": false,
+    "esnext": true,
+    "rules": {
+      "max-params": 0
+    }
   }
 }
