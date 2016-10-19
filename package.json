@@ -1,7 +1,7 @@
 {
   "name": "nomadlist-cli",
   "version": "1.0.0",
-  "description": "Get Cities from nomadlist.com",
+  "description": "Get cities from nomadlist.com",
   "scripts": {
     "start": "node cli.js -a",
     "test": "xo && ava"

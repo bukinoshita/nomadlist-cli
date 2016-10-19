@@ -1,6 +1,8 @@
 # Nomadlist CLI
 > Get cities from nomadlist.com
 
+<img src="screenshot.gif" width="404">
+
 ## Install:
 ```
 $ npm install -g nomadlist-cli
