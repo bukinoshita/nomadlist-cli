@@ -1,5 +1,5 @@
 # Nomadlist CLI
-> Get Cities from nomadlist.com
+> Get cities from nomadlist.com
 
 ## Install:
 ```
@@ -37,11 +37,6 @@ $ nomadlist --help
     --air                   air quality as mensured by the AQI index
     --nightlife             great nightlife, clubs, festivals and culture
     --friendly              friendliness to foreigners
-```
-
-## Help:
-```
-$ nomadlist
 ```
 
 ## License
