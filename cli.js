@@ -4,50 +4,62 @@
 
 const meow = require('meow')
 const updateNotifier = require('update-notifier')
-const got = require('got')
-const chalk = require('chalk')
-const boxen = require('boxen')
-const ora = require('ora')
-const spinner = ora()
+const api = require('./lib/api')
+const search = require('./lib/search')
 
 const cli = meow(`
   Usage
-    $ nomadlist <city>
+    $ nomadlist             list of all cities
+    $ nomadlist <city>      search for a city
+    $ nomadlist --option    list of a specific option
+
+  Example
+    $ nomadlist
+    $ nomadlist sao-paulo
+    $ nomadlist new-york-city
+    $ nomadlist --cheap
+    $ nomadlist --nightlife
 
   Options
-    -a, --all Get all cities
+    --cheap                 less than $750/m to live
+    --internet              with fast internet (> 15mbps)
+    --work                  with places to work
+    --safe                  safe cities
+    --warm                  warm weather (above 21°C or 70°F)
+    --affordable            less than 1250/m to live
+    --mid                   less than 3000/m to live
+    --expensive             over $3000/m to live
+    --cold                  cold cities (less than 20°C or 68°F)
+    --mild                  mild cities (between 16°C and 25°C or between 60°F and 77°F)
+    --hot                   hot cities (above 30°C or 75°F)
+    --air                   air quality as mensured by the AQI index
+    --nightlife             great nightlife, clubs, festivals and culture
+    --friendly              friendliness to foreigners
+    
+    --help, -h              Help
 `)
 
 updateNotifier({pkg: cli.pkg}).notify()
 
-if (cli.flags.all || cli.flags.a) {
-  spinner.start()
+const flag = Object.keys(cli.flags)[0] || 'all'
+const prop = cli.input[0] || 0
 
-  got('https://nomadlist.com/api/v2/list/cities')
-    .then(response => {
-      spinner.stop()
-
-      const cities = JSON.parse(response.body)
-
-      cities.result.map((result) => {
-        const { info, cost } = result
-        const { city, country, internet } = info
-
-        const output = [
-          `${chalk.bold.yellow('⇢ City:')} ${chalk.bold(city.name)}
-${chalk.bold.yellow('⇢ Country:')} ${chalk.bold(country.name)}
-${chalk.bold.yellow('⇢ Internet:')} ${chalk.bold(internet.speed.download)}MBPS
-${chalk.bold.yellow('⇢ Cost:')} $${chalk.bold(cost.expat.USD)}/m`
-        ]
-
-        console.log(boxen(output.join('\n'), {padding: 1, borderStyle: 'round'}))
-      })
-
-      process.exit(0)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-} else {
+if (cli.flags.help || cli.flags.h) {
   cli.showHelp()
+} else if (prop.length > 0) {
+  console.log(`Searching for ${prop}...`)
+
+  api().then(res => {
+    res.map(result => {
+      return search('search', prop)(result)
+    })
+  })
+} else {
+  console.log(`Searching for ${flag}...`)
+
+  api().then(res => {
+    res.map(result => {
+      return search(flag)(result)
+    })
+  })
 }

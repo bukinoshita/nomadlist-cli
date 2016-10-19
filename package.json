@@ -1,10 +1,10 @@
 {
   "name": "nomadlist-cli",
-  "version": "0.4.1",
+  "version": "1.0.0",
   "description": "Get Cities from nomadlist.com",
   "scripts": {
     "start": "node cli.js -a",
-    "test": "ava"
+    "test": "xo && ava"
   },
   "repository": {
     "type": "git",
@@ -36,6 +36,15 @@
     "nomadlist": "cli.js"
   },
   "devDependencies": {
-    "ava": "^0.16.0"
+    "ava": "^0.16.0",
+    "xo": "^0.17.0"
+  },
+  "xo": {
+    "space": true,
+    "semicolon": false,
+    "esnext": true,
+    "rules": {
+      "max-params": 0
+    }
   }
 }
