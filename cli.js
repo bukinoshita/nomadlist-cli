@@ -5,110 +5,61 @@
 const meow = require('meow')
 const updateNotifier = require('update-notifier')
 const api = require('./lib/api')
-const output = require('./lib/output')
+const search = require('./lib/search')
 
 const cli = meow(`
   Usage
+    $ nomadlist             list of all cities
+    $ nomadlist <city>      search for a city
+    $ nomadlist --option    list of a specific option
+
+  Example
     $ nomadlist
-    $ nomadlist <city>
-    $ nomadlist --option
+    $ nomadlist sao-paulo
+    $ nomadlist new-york-city
+    $ nomadlist --cheap
+    $ nomadlist --nightlife
 
   Options
-    -c, --cheap      cheap cities (less than $1250/m)
-    -i, --internet   with fast internet (> 15mbps)
-    -w, --work       with great places to work
-    -s, --safe       safe cities
-    -w, --warm       warm weather (< 32C)
+    --cheap                 less than $750/m to live
+    --internet              with fast internet (> 15mbps)
+    --work                  with places to work
+    --safe                  safe cities
+    --warm                  warm weather (above 21°C or 70°F)
+    --affordable            less than 1250/m to live
+    --mid                   less than 3000/m to live
+    --expensive             over $3000/m to live
+    --cold                  cold cities (less than 20°C or 68°F)
+    --mild                  mild cities (between 16°C and 25°C or between 60°F and 77°F)
+    --hot                   hot cities (above 30°C or 75°F)
+    --air                   air quality as mensured by the AQI index
+    --nightlife             great nightlife, clubs, festivals and culture
+    --friendly              friendliness to foreigners
     
-    --affordable     affordable (less than $3000/m)
-    --expensive      expensive (over $3000/m)
-    --cold           cold cities (< 20C)
-    --hot            hot cities (> 32C)
-    
-    -h, --help       Help
+    --help, -h              Help
 `)
 
 updateNotifier({pkg: cli.pkg}).notify()
 
-if (cli.flags.cheap || cli.flags.c) {
+const flag = Object.keys(cli.flags)[0] || 'all'
+const prop = cli.input[0] || 0
+
+if (cli.flags.help || cli.flags.h) {
+  cli.showHelp()
+} else if (prop.length > 0) {
+  console.log(`Searching for ${prop}...`)
+
   api().then(res => {
     res.map(result => {
-      const {info, cost} = result
-      const {city, country, region, internet, weather} = info
-
-      if (cost.expat.USD < 1250) {
-        const nomadlist = output(city.name, country.name, region.name, internet.speed.download, cost.expat.USD, weather.temperature.celsius)
-        console.log(nomadlist)
-      }
-
-      return false
-    })
-  })
-} else if (cli.flags.internet || cli.flags.i) {
-  api().then(res => {
-    res.map(result => {
-      const {info, cost} = result
-      const {city, country, region, internet, weather} = info
-
-      if (internet.speed.download > 15) {
-        const nomadlist = output(city.name, country.name, region.name, internet.speed.download, cost.expat.USD, weather.temperature.celsius)
-        console.log(nomadlist)
-      }
-
-      return false
-    })
-  })
-} else if (cli.flags.work || cli.flags.w) {
-  api().then(res => {
-    res.map(result => {
-      const {info, cost, scores} = result
-      const {city, country, region, internet, weather} = info
-
-      if (scores.places_to_work > 0.5) {
-        const nomadlist = output(city.name, country.name, region.name, internet.speed.download, cost.expat.USD, weather.temperature.celsius)
-        console.log(nomadlist)
-      }
-
-      return false
-    })
-  })
-} else if (cli.flags.safe || cli.flags.s) {
-  api().then(res => {
-    res.map(result => {
-      const {info, cost, scores} = result
-      const {city, country, region, internet, weather} = info
-
-      if (scores.safety > 0.5) {
-        const nomadlist = output(city.name, country.name, region.name, internet.speed.download, cost.expat.USD, weather.temperature.celsius)
-        console.log(nomadlist)
-      }
-
-      return false
-    })
-  })
-} else if (cli.flags.warm) {
-  api().then(res => {
-    res.map(result => {
-      const {info, cost} = result
-      const {city, country, region, internet, weather} = info
-
-      if (weather.temperature.celsius < 32) {
-        const nomadlist = output(city.name, country.name, region.name, internet.speed.download, cost.expat.USD, weather.temperature.celsius)
-        console.log(nomadlist)
-      }
-
-      return false
+      return search('search', prop)(result)
     })
   })
 } else {
+  console.log(`Searching for ${flag}...`)
+
   api().then(res => {
     res.map(result => {
-      const {info, cost} = result
-      const {city, country, region, internet, weather} = info
-      const nomadlist = output(city.name, country.name, region.name, internet.speed.download, cost.expat.USD, weather.temperature.celsius)
-      console.log(nomadlist)
-
-      return false
+      return search(flag)(result)
     })
   })
 }
