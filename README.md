@@ -1,6 +1,10 @@
 # Nomadlist CLI
 > Get cities from nomadlist.com
 
+[![GitHub release](https://img.shields.io/github/release/bukinoshita/nomadlist-cli.svg)](https://www.npmjs.com/package/nomadlist-cli)
+[![npm](https://img.shields.io/npm/dt/nomadlist-cli.svg)](https://www.npmjs.com/package/nomadlist-cli)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/BuKinoshita/nomadlist-cli/master/LICENSE)
+
 <img src="screenshot.gif" width="404">
 
 ## Install:
